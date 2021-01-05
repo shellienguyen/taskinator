@@ -55,7 +55,7 @@ let createTaskEl = function( taskDataObj ) {
 
    // Increase task counter for the next unique id
    taskIdCounter++;
-}
+};
 
 let createTaskActions = function( taskId ) {
    let actionContainerEl = document.createElement( "div" );
@@ -98,7 +98,7 @@ let createTaskActions = function( taskId ) {
    };
 
    return actionContainerEl;
-}
+};
 
 formEl.addEventListener( "submit", taskFormHandler );
 
@@ -108,10 +108,38 @@ let deleteTask = function( taskId ) {
    console.log( taskSelected );
 };
 
-let taskButtonHandler = function( event ) {
-   console.log( event.target );
+let editTask = function( taskId ) {
+   console.log( "Editing task#" + taskId );
 
-   if ( event.target.matches( ".delete-btn" )) {
+   // Get task list item element
+   let taskSelected = document.querySelector( ".task-item[data-task-id = '" + taskId + "' ]" );
+
+   // Get content from task name and type
+   let taskName = taskSelected.querySelector( "h3.task-name" ).textContent;
+   let taskType = taskSelected.querySelector( "span.task-type" ).textContent;
+
+   // Reuse the selectors to update the form
+   document.querySelector( "input[ name = 'task-name' ]" ).value = taskName;
+   document.querySelector( "select[ name = 'task-type' ]" ).value = taskType;
+
+   // Update the text of the submit button so the user knows we are in edit mode
+   document.querySelector( "#save-task" ).textContent = "Save Task";
+
+   // Add task id
+   formEl.setAttribute( "data-task-id", taskId );
+};
+
+let taskButtonHandler = function( event ) {
+   // Get target element from event
+   let targetEl = event.target;
+
+   // If edit button was clicked
+   if ( targetEl.matches( ".edit-btn" )) {
+      let taskId = targetEl.getAttribute( "data-task-id" );
+      editTask( taskId );
+   }
+   // If delete button was clicked
+   else if ( event.target.matches( ".delete-btn" )) {
       // Get the element's task id
       let taskId = event.target.getAttribute( "data-task-id" );
       deleteTask( taskId );

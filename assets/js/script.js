@@ -213,6 +213,8 @@ let dropZoneDragHandler = function( event ) {
       // Prevent task item from bouncing back to its original position,
       //   which is the default behavior
       event.preventDefault();
+
+      taskListEl.setAttribute( "style", "background: rbga( 68, 233, 255, 0.7); border-style: dashed;" );
    }
 };
 
@@ -236,8 +238,18 @@ let dropTaskHandler = function( event ) {
       statusSelectEl.selectedIndex = 2;
    };
 
+   // Remove temporary hover-over style once done hovering
+   dropZoneEl.removeAttribute( "style" );
+
    // Append the task to its new parent
    dropZoneEl.appendChild( draggableElement );
+};
+
+let dragLeaveHandler = function( event ) {
+   let taskListEl = event.target.closest( ".task-list" );
+   if ( taskListEl ) {
+      taskListEl.removeAttribute( "style" );
+   };
 };
 
 pageContentEl.addEventListener( "click", taskButtonHandler );
@@ -245,3 +257,4 @@ pageContentEl.addEventListener( "change", taskStatusChangeHandler );
 pageContentEl.addEventListener( "dragstart", dragTaskHandler );
 pageContentEl.addEventListener( "dragover", dropZoneDragHandler );
 pageContentEl.addEventListener( "drop", dropTaskHandler );
+pageContentEl.addEventListener( "dragleave", dragLeaveHandler );

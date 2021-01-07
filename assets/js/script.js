@@ -214,7 +214,7 @@ let dropZoneDragHandler = function( event ) {
       //   which is the default behavior
       event.preventDefault();
 
-      taskListEl.setAttribute( "style", "background: rbga( 68, 233, 255, 0.7); border-style: dashed;" );
+      taskListEl.setAttribute( "style", "background: rgba( 68, 233, 255, 0.7 ); border-style: dashed;" );
    }
 };
 

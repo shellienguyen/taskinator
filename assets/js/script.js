@@ -405,6 +405,29 @@ let loadTasks = function() {
 
 
 
+/* let loadTasks = function() {
+   let savedTasks = localStorage.getItem( "tasks" );
+
+   if ( !savedTasks ) {
+      return false;
+   };
+
+   savedTasks = JSON.parse( savedTasks );
+
+   // Loop through savedTasks array to load and display each task
+   for ( let i = 0; i < savedTasks.length; i++ ) {
+      // Pass each task object into the createTaskEl() function
+      createTaskEl( savedTasks[ i ]);
+      console.log( "i: " + i );
+      console.log( savedTasks[ i ].id );
+      console.log( savedTasks[ i ].name );
+      console.log( savedTasks[ i ].type );
+      console.log( savedTasks[ i ].status );
+   }
+}; */
+
+
+
 document.addEventListener( "DOMContentLoaded", function() { loadTasks(); });
 formEl.addEventListener( "submit", taskFormHandler );
 pageContentEl.addEventListener( "click", taskButtonHandler );
